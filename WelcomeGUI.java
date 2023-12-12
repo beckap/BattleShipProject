@@ -4,18 +4,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class WelcomeGUI extends JFrame {
+    String fileName = "options.ini";
+    File optionFile = new File(fileName);
+    PrintWriter writer;
 
     public WelcomeGUI() {
-        JFrame welcomeFrame = new JFrame();
+        createFile();
         setLocation(300,300);
         setSize(400,100);
         JLabel welcomeLabel = new JLabel("Welcome to Battleship!");
         Font myFont = new Font("SansSerif", Font.BOLD, 23);
         JLabel label = new JLabel("Choose your grid:");
         JButton tenButton = new JButton("10x10");
+        tenButton.addActionListener(sizeSetter);
         JButton eightButton = new JButton("8x8");
+        eightButton.addActionListener(sizeSetter);
         welcomeLabel.setFont(myFont);
         Font bodyFont = new Font("SansSarif", Font.PLAIN, 15);
         label.setFont(bodyFont);
@@ -25,6 +33,7 @@ public class WelcomeGUI extends JFrame {
         panel.add(eightButton, BorderLayout.EAST);
         panel.add(tenButton, BorderLayout.WEST);
         add(panel, BorderLayout.SOUTH);
+        this.setVisible(true);
     }
 
     protected void changeFrames(JButton button, JFrame frame1, JFrame frame2) {
@@ -35,5 +44,26 @@ public class WelcomeGUI extends JFrame {
                 frame2.setVisible(true);
             }
         });
+    }
+
+
+    ActionListener sizeSetter = e ->  {
+        JButton b = (JButton)e.getSource();
+        System.out.println(b.getText().substring(0, b.getText().indexOf("x")));
+        writer.write(b.getText().substring(0, b.getText().indexOf("x")));
+        writer.close();
+    };
+
+    private void createFile(){
+        try {
+            optionFile.createNewFile();
+            writer = new PrintWriter(optionFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(WelcomeGUI::new);
     }
 }
