@@ -1,36 +1,25 @@
 package BattleShip;
 
-public abstract class Field {
-    private int x;
-    private int y;
-    private int length = 1;
-    private boolean horizontal;
+public class Field {
+    private Coordinate coord;
+    private boolean shot;
 
-    public Field(int x, int y, int length, boolean horizontal) {
-        if (length > 0) {
-            this.length = length;
-        }
-        this.x = x;
-        this.y = y;
-        this.horizontal = horizontal;
+    public Field(Coordinate coord) {
+        this.coord = coord;
     }
 
-    public int getX() {
-        return x;
+    public Coordinate getCoord() {
+        return coord;
     }
 
-    public int getY() {
-        return y;
+    public void shot() {
+        this.shot = true;
+    }
+    public boolean isShot() {
+        return shot;
     }
 
-    public int getLength() {
-        return length;
+    public boolean isEquals(Field other) {
+        return this.coord.getX() == other.getCoord().getX() && this.coord.getY() == other.getCoord().getY();
     }
-
-    public boolean isHorizontal() {
-        return horizontal;
-    }
-
-    public abstract boolean sunken();
-    public abstract void shot();
 }
