@@ -15,6 +15,7 @@ public class Board {
         this.size = size;
         this.fields = new Field[size][size];
         this.ships = new Ship[LENGTH_OF_SHIPS.length];
+        populateShipsRandomly();
     }
 
     private void populateShipsRandomly() {
