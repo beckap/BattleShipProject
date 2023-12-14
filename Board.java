@@ -1,19 +1,25 @@
 package BattleShip;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+/**
+ * CSCI 185 Fall 2023
+ * Final Programming Project
+ * @version 1
+ * Rebeca Perez, Aidan Adame, Zarrin Islam -- Dec. 14, 2023
+ */
 public class Board {
     private static int[] LENGTH_OF_SHIPS = {2,3,3,4,5};
-    private int size = 10;
+    private static int SIZE = 10;
     private Ship[] ships;
-    private Field[][] fields;
+    private int size;
+    private List<Field> shots = new ArrayList<>();
 
-    public Board(int size) {
-        if (size <= 0) {
-            throw new IllegalArgumentException("Invalid Board size.");
-        }
-        this.size = size;
-        this.fields = new Field[size][size];
+    public Board() {
+        this.size = SIZE;
         this.ships = new Ship[LENGTH_OF_SHIPS.length];
         populateShipsRandomly();
     }
@@ -51,4 +57,45 @@ public class Board {
         return true;
     }
 
+    public boolean shot(Coordinate coord) throws Exception {
+        Field field = new Field(coord);
+        if (this.shots.contains(field)) {
+            throw new Exception("This coordinate was already used");
+        }
+        this.shots.add(field);
+        for (Ship ship : this.ships) {
+            field.setShot(ship.shot(coord));
+        }
+        return field.isShot();
+    }
+
+    public boolean areAllShipsSunken() {
+        for (Ship ship : this.ships) {
+            if (!ship.isSunken()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void printShips() {
+        String[][] board = new String[this.size][this.size];
+        for (int x = 0; x < this.size; x++) {
+            for (int y = 0; y < this.size; y++) {
+                board[x][y] = " - ";
+            }
+        }
+        for (Ship ship : this.ships) {
+            for(Field field : ship.getFields()) {
+                Coordinate coord = field.getCoord();
+                board[coord.getX()][coord.getY()] = " " + ship.getFields().length + " ";
+            }
+        }
+        for (int x = 0; x < this.size; x++) {
+            for (int y = 0; y < this.size; y++) {
+                System.out.print(board[x][y]);
+            }
+            System.out.print("\n");
+        }
+    }
 }

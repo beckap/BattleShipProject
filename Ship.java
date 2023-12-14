@@ -1,6 +1,13 @@
 package BattleShip;
 
+/**
+ * CSCI 185 Fall 2023
+ * Final Programming Project
+ * @version 1
+ * Rebeca Perez, Aidan Adame, Zarrin Islam -- Dec. 14, 2023
+ */
 public class Ship {
+
     private Field[] fields;
     private boolean isHorizontal;
     private Coordinate origin;
@@ -12,6 +19,10 @@ public class Ship {
         this.origin = origin;
         this.intactFields = length;
         this.createFields();
+    }
+
+    public Field[] getFields() {
+        return fields;
     }
 
     private void createFields() {
@@ -38,12 +49,23 @@ public class Ship {
         return false;
     }
 
-    public void shot(Coordinate coord) {
-        Field field = new Field(coord);
-        if (isInShip(coord)) {
-            this.intactFields--;
+    public Field getField(Coordinate coord) {
+        for (Field f : this.fields) {
+            if (f.getCoord().isEquals(coord)) {
+                return f;
+            }
         }
-        field.shot();
+        return null;
+    }
+
+    public boolean shot(Coordinate coord) {
+        if (isInShip(coord)) {
+            Field field = getField(coord);
+            field.shot();
+            this.intactFields--;
+            return true;
+        }
+        return false;
     }
 
     public boolean intersectsShip(Ship other) {
