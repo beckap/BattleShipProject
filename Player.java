@@ -2,6 +2,7 @@ package BattleShip;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * CSCI 185 Fall 2023
@@ -14,6 +15,12 @@ public class Player {
     private List<Field> turns = new ArrayList<>();
 
     public Player() {
+        this.resetGame();
+    }
+
+    public void resetGame() {
+        board = new Board();
+        turns = new ArrayList<>();
     }
 
     public void turn(Player otherPlayer, Coordinate coord) throws Exception {
@@ -25,13 +32,17 @@ public class Player {
         field.setShot(otherPlayer.shot(coord));
         this.turns.add(field);
     }
-    
+
     public boolean shot(Coordinate coord) throws Exception {
         return this.board.shot(coord);
     }
 
     public boolean areAllShipsSunken() {
         return this.board.areAllShipsSunken();
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
 }

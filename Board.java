@@ -24,12 +24,16 @@ public class Board {
         populateShipsRandomly();
     }
 
+    public int getSize() {
+        return size;
+    }
+
     private void populateShipsRandomly() {
         for (int i = 0; i < LENGTH_OF_SHIPS.length; i++) {
             Ship ship;
             do {
                 boolean isHorizontal = (new Random().nextBoolean());
-                Field originField = this.getRandomField(LENGTH_OF_SHIPS[i],isHorizontal);
+                Field originField = this.getRandomField(LENGTH_OF_SHIPS[i], isHorizontal);
                 ship = new Ship(LENGTH_OF_SHIPS[i], isHorizontal, originField.getCoord());
             } while (!isValidShip(i, ship));
             this.ships[i] = ship;
@@ -97,5 +101,10 @@ public class Board {
             }
             System.out.print("\n");
         }
+    }
+
+    public static void main(String[] args) {
+        Board board = new Board();
+        board.printShips();
     }
 }
