@@ -16,12 +16,17 @@ public class PlayerComputer extends Player {
      * Available turns for computer to make
      */
     private List<Coordinate> availableTurns;
+    private GridButton[][] buttons;
 
     /**
      * PlayerComputer constructor
      */
-    public PlayerComputer() {
+    public PlayerComputer(GridButton[][] buttons, boolean isPlayer) throws IOException {
+        super(buttons, isPlayer);
         this.resetGame();
+        this.buttons = buttons;
+        this.getBoard().setShipIcons(this.buttons, isPlayer);
+
     }
 
     /**

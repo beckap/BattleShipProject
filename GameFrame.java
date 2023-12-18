@@ -5,10 +5,20 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GameFrame extends JFrame {
+    private static ComputerPanel pPanel;
+
+    static {
+        try {
+            pPanel = new ComputerPanel(true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private ComputerPanel cPanel = new ComputerPanel(false);
+
     GameFrame() throws IOException {
         this.setTitle("Java Battleship");
-        ComputerPanel pPanel = new ComputerPanel(true);
-        ComputerPanel cPanel = new ComputerPanel(false);
         this.add(pPanel, BorderLayout.WEST);
         this.add(cPanel, BorderLayout.EAST);
         this.pack();
@@ -17,4 +27,8 @@ public class GameFrame extends JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
+
+
+    public static ComputerPanel getPlayerPanel(){ return pPanel; }
+    public ComputerPanel getComputerPanel(){ return this.cPanel; }
 }

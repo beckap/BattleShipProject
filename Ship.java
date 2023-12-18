@@ -1,5 +1,7 @@
 package BattleShip;
 
+import java.io.IOException;
+
 /**
  * CSCI 185 Fall 2023
  * Final Programming Project
@@ -94,13 +96,16 @@ public class Ship {
      * @param coord coordinate
      * @return true or false
      */
-    public boolean shot(Coordinate coord) {
+    public boolean shot(Coordinate coord, GridButton[][] ButtonArray) throws IOException {
         if (isInShip(coord)) {
+            System.out.println("SHOTTTT");
+            ButtonArray[coord.getY()][coord.getX()].hitShip();
             Field field = getField(coord);
             field.shot();
             this.intactFields--;
             return true;
         }
+        else { ButtonArray[coord.getY()][coord.getX()].miss(); }
         return false;
     }
 

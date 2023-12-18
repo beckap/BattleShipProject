@@ -106,14 +106,14 @@ public class Board {
      * @return true - field shot
      * @throws Exception exception
      */
-    public boolean shot(Coordinate coord) throws Exception {
+    public boolean shot(Coordinate coord, GridButton[][] ButtonArray) throws Exception {
         Field field = new Field(coord);
         if (this.shots.contains(field)) {
             throw new Exception("This coordinate was already used");
         }
         this.shots.add(field);
         for (Ship ship : this.ships) {
-            field.setShot(ship.shot(coord));
+            field.setShot(ship.shot(coord, ButtonArray));
         }
         return field.isShot();
     }

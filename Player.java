@@ -22,14 +22,16 @@ public class Player {
      * Player's turns
      */
     private List<Field> turns = new ArrayList<>();
+    private GridButton[][] buttons;
 
     /**
      * Player constructor
      */
 
     public Player(GridButton[][] buttons, boolean isPlayer ) throws IOException {
-        this.board.setShipIcons(buttons, isPlayer);
+        this.buttons = buttons.clone();
         this.resetGame();
+        this.board.setShipIcons(this.buttons, isPlayer);
     }
     
     /**
@@ -52,7 +54,7 @@ public class Player {
             System.out.println("This coordinate already was used: " + coord);
             return;
         }
-        field.setShot(otherPlayer.shot(coord));
+        field.setShot(otherPlayer.shot(coord, otherPlayer.getButtons()));
         this.turns.add(field);
     }
 
@@ -62,8 +64,8 @@ public class Player {
      * @return true - field shot
      * @throws Exception exception
      */
-    public boolean shot(Coordinate coord) throws Exception {
-        return this.board.shot(coord);
+    public boolean shot(Coordinate coord, GridButton[][] buttons) throws Exception {
+        return this.board.shot(coord, buttons);
     }
 
     /**
@@ -76,6 +78,10 @@ public class Player {
 
     public Board getBoard() {
         return board;
+    }
+
+    public GridButton[][] getButtons(){
+        return this.buttons.clone();
     }
 
 }
