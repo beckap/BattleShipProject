@@ -1,5 +1,7 @@
 package BattleShip;
 
+import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +16,8 @@ public class Player {
     private Board board = new Board();
     private List<Field> turns = new ArrayList<>();
 
-    public Player() {
+    public Player(GridButton[][] buttons, boolean isPlayer ) throws IOException {
+        this.board.setShipIcons(buttons, isPlayer);
         this.resetGame();
     }
 
@@ -26,7 +29,7 @@ public class Player {
     public void turn(Player otherPlayer, Coordinate coord) throws Exception {
         Field field = new Field(coord);
         if (this.turns.contains(field)) {
-            System.out.println("This coordinate already was used: " + coord);
+            JOptionPane.showMessageDialog(null, "This coordinate was already used! " + coord);
             return;
         }
         field.setShot(otherPlayer.shot(coord));

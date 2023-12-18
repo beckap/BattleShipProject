@@ -13,7 +13,7 @@ public class Coordinate {
     private int y;
 
     public Coordinate(int x, int y) {
-        if (x <= 0 || y <= 0) {
+        if (x < 0 || y < 0) {
             throw new IllegalArgumentException("Invalid coordinate.");
         }
         this.x = x;

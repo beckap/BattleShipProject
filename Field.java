@@ -34,6 +34,8 @@ public class Field {
         return this.coord.getX() == other.getCoord().getX() && this.coord.getY() == other.getCoord().getY();
     }
 
+    public String toString(){ return String.valueOf(getCoord()); }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

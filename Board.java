@@ -1,6 +1,8 @@
 package BattleShip;
 
 import javax.swing.*;
+import javax.xml.transform.Source;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +21,7 @@ public class Board {
     private List<Field> shots = new ArrayList<>();
 
     public Board() {
+        System.out.println("test");
         this.size = SIZE;
         this.ships = new Ship[LENGTH_OF_SHIPS.length];
         populateShipsRandomly();
@@ -106,5 +109,14 @@ public class Board {
     public static void main(String[] args) {
         Board board = new Board();
         board.printShips();
+    }
+    public void setShipIcons( GridButton[][] board, boolean isPlayer ) throws IOException {
+        for (Ship ship : this.ships) {
+            for(int i = 0; i < ship.getFields().length; i++){
+                int orienter = 1;
+                Coordinate coord = ship.getFields()[i].getCoord();
+                board[coord.getX() + 1][coord.getY() + 1].makeShip(isPlayer, orienter);
+            }
+        }
     }
 }

@@ -1,18 +1,30 @@
 package BattleShip;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public class GridButton extends JButton {
-    private final int col;
-    private final int row;
+    private final Coordinate coord;
+    private final ImageIcon greyDot = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResource("Images/" + "GreyDot" + ".png"))));
 
-    public GridButton( int col, int row ){
+    public GridButton( int col, int row ) throws IOException {
         super();
-        this.col = col;
-        this.row = row;
+        this.coord = new Coordinate(col, row);
     }
 
-    public int getColumn(){ return this.col; }
-    public int getRow(){ return this.row; }
+    public Coordinate getCoord(){ return this.coord; }
 
+    protected void miss(){
+        this.setIcon(greyDot);
+    }
+    protected void makeShip(boolean isPlayer, int orientation) throws IOException {
+        ImageIcon shipDot = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResource("Images/state" + isPlayer + ".png"))));
+        this.setIcon(shipDot);
+    }
+    protected void hitShip() throws IOException{
+        ImageIcon hitDot = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResource("Images/" + "A" + ".png"))));
+        this.setIcon(hitDot);
+    }
 }

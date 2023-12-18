@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,9 +22,9 @@ public class WelcomeGUI extends JFrame {
         Font myFont = new Font("SansSerif", Font.BOLD, 23);
         JLabel label = new JLabel("Choose your grid:");
         JButton tenButton = new JButton("10x10");
-        tenButton.addActionListener(sizeSetter);
+        tenButton.addActionListener(iniWriter);
         JButton eightButton = new JButton("8x8");
-        eightButton.addActionListener(sizeSetter);
+        eightButton.addActionListener(iniWriter);
         welcomeLabel.setFont(myFont);
         Font bodyFont = new Font("SansSarif", Font.PLAIN, 15);
         label.setFont(bodyFont);
@@ -46,12 +47,17 @@ public class WelcomeGUI extends JFrame {
         });
     }
 
-
-    ActionListener sizeSetter = e ->  {
-        JButton b = (JButton)e.getSource();
+    ActionListener iniWriter = e ->  {
+        try {
+            new GameFrame();
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        /*JButton b = (JButton)e.getSource();
         System.out.println(b.getText().substring(0, b.getText().indexOf("x")));
         writer.write(b.getText().substring(0, b.getText().indexOf("x")));
-        writer.close();
+        writer.close();*/
     };
 
     private void createFile(){
