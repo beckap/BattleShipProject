@@ -14,23 +14,47 @@ import java.util.Random;
  * Rebeca Perez, Aidan Adame, Zarrin Islam -- Dec. 14, 2023
  */
 public class Board {
+    
+    /**
+     * length of all 5 ships
+     */
     private static int[] LENGTH_OF_SHIPS = {2,3,3,4,5};
+    /**
+     * Max size of board
+     */
     private static int SIZE = 10;
+
+    /**
+     * Characteristics of the board
+     */
     private Ship[] ships;
     private int size;
+
+    /**
+     * Opponent's shots to board
+     */
     private List<Field> shots = new ArrayList<>();
 
+    /**
+     * Board constructor
+     */
     public Board() {
-        System.out.println("test");
         this.size = SIZE;
         this.ships = new Ship[LENGTH_OF_SHIPS.length];
         populateShipsRandomly();
     }
 
+    /**
+     * Returns the size of board
+     * @return size
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Randomly sets the location of the ships on the board
+     */
     private void populateShipsRandomly() {
         for (int i = 0; i < LENGTH_OF_SHIPS.length; i++) {
             Ship ship;
@@ -43,6 +67,12 @@ public class Board {
         }
     }
 
+    /**
+     * Gets a random Field origin for the ships
+     * @param length length of ship
+     * @param isHorizontal horizontal or vertical
+     * @return field
+     */
     private Field getRandomField(int length, boolean isHorizontal) {
         int pos1 = (new Random().nextInt(this.size));
         int pos2 = (new Random().nextInt(this.size - length));
@@ -55,6 +85,12 @@ public class Board {
         return f;
     }
 
+    /**
+     * Checks if the ship does not intersect another or if the position is good
+     * @param indexOfCurrentShip current ship size
+     * @param ship ship to check
+     * @return true or false
+     */
     private boolean isValidShip(int indexOfCurrentShip, Ship ship) {
         for (int i = 0; i < indexOfCurrentShip; i++) {
             if (this.ships[i].intersectsShip(ship)) {
@@ -64,6 +100,12 @@ public class Board {
         return true;
     }
 
+    /**
+     * Keeps track of the opponent's shots on your board, the fields it has shot and the ships.
+     * @param coord chosen coordinate to send shot
+     * @return true - field shot
+     * @throws Exception exception
+     */
     public boolean shot(Coordinate coord) throws Exception {
         Field field = new Field(coord);
         if (this.shots.contains(field)) {
@@ -76,6 +118,10 @@ public class Board {
         return field.isShot();
     }
 
+    /**
+     * Checks if all ships are sunken to determine if opponent has won
+     * @return boolean
+     */
     public boolean areAllShipsSunken() {
         for (Ship ship : this.ships) {
             if (!ship.isSunken()) {
@@ -85,6 +131,9 @@ public class Board {
         return true;
     }
 
+    /**
+     * Prints a board with random ships located
+     */
     public void printShips() {
         String[][] board = new String[this.size][this.size];
         for (int x = 0; x < this.size; x++) {
