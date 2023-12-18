@@ -9,28 +9,55 @@ import java.util.Objects;
  * Rebeca Perez, Aidan Adame, Zarrin Islam -- Dec. 14, 2023
  */
 public class Coordinate {
+    /**
+     * Horizontal Coordinate
+     */
     private int x;
+    /**
+     * Vertical Coordinate
+     */
     private int y;
 
+    /**
+     * Class constructor that accepts both coordinates
+     * @param x horizontal coordinate
+     * @param y vertical coordinate
+     */
     public Coordinate(int x, int y) {
-        if (x < 0 || y < 0) {
-            throw new IllegalArgumentException("Invalid coordinate.");
-        }
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * Returns x coordinate
+     * @return x
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Returns y coordinate
+     * @return y
+     */
     public int getY() {
         return y;
     }
+
+    /**
+     * Compares two coordinates and returns if they are the same or not
+     * @param other other coordinate
+     * @return true or false
+     */
     public boolean isEquals(Coordinate other) {
         return this.getX() == other.getX() && this.getY() == other.getY();
     }
 
+    /**
+     * Compares coordinates to see if they are equal
+     * @param o other object
+     * @return true or false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
