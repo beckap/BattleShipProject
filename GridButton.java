@@ -21,12 +21,14 @@ public class GridButton extends JButton {
         if(!hit){ this.setIcon(greyDot); }
     }
     protected void makeShip(boolean isPlayer, int orientation) throws IOException {
-        ImageIcon shipDot = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResource("Images/state" + isPlayer + ".png"))));
-        this.setIcon(shipDot);
+        if(isPlayer) {
+            ImageIcon shipDot = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResource("Images/state" + isPlayer + ".png"))));
+            this.setIcon(shipDot);
+        }
     }
     protected void hitShip() throws IOException{
         hit = true;
-        ImageIcon hitDot = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResource("Images/" + "A" + ".png"))));
+        ImageIcon hitDot = new ImageIcon(ImageIO.read(Objects.requireNonNull(getClass().getResource("Images/state" + "false" + ".png"))));
         this.setIcon(hitDot);
     }
 }

@@ -13,7 +13,7 @@ public class GridPanel extends JPanel {
     private final int columns = size + 1;
     private final int rows = size + 1;
     private Player p1;
-    private Player p2;
+    private PlayerComputer p2;
     private Map<String, ImageIcon> resourceMap = new HashMap<>();
     private GridButton[][] buttonArrayArray = new GridButton[columns][rows];
 
@@ -81,10 +81,11 @@ public class GridPanel extends JPanel {
         GridButton b = (GridButton) e.getSource();
         try {
             GameFrame.getPlayerPanel().getGridPanel().p1.turn(p2, b.getCoord());
+            for( ActionListener al : b.getActionListeners()){ b.removeActionListener(al); }
+            p2.turn(GameFrame.getPlayerPanel().getGridPanel().p1);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-        for( ActionListener al : b.getActionListeners()){ b.removeActionListener(al); }
         System.out.println("Col: " + b.getCoord().getX() + " Row: " + b.getCoord().getY());
     };
 
