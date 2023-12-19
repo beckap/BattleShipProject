@@ -14,7 +14,7 @@ import java.util.Random;
  * Rebeca Perez, Aidan Adame, Zarrin Islam -- Dec. 14, 2023
  */
 public class Board {
-    
+
     /**
      * length of all 5 ships
      */
@@ -22,7 +22,7 @@ public class Board {
     /**
      * Max size of board
      */
-    private static int SIZE = 10;
+    private static int SIZE = 11;
 
     /**
      * Characteristics of the board
@@ -74,8 +74,8 @@ public class Board {
      * @return field
      */
     private Field getRandomField(int length, boolean isHorizontal) {
-        int pos1 = (new Random().nextInt(this.size));
-        int pos2 = (new Random().nextInt(this.size - length));
+        int pos1 = (new Random().nextInt(this.size)) + 1;
+        int pos2 = (new Random().nextInt(this.size - length)) + 1;
         Field f;
         if(isHorizontal) {
             f = new Field(new Coordinate(pos2, pos1));
@@ -164,7 +164,7 @@ public class Board {
             for(int i = 0; i < ship.getFields().length; i++){
                 int orienter = 1;
                 Coordinate coord = ship.getFields()[i].getCoord();
-                board[coord.getX() + 1][coord.getY() + 1].makeShip(isPlayer, orienter);
+                board[coord.getY()][coord.getX()].makeShip(isPlayer, orienter);
             }
         }
     }
