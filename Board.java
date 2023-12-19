@@ -74,8 +74,10 @@ public class Board {
      * @return field
      */
     private Field getRandomField(int length, boolean isHorizontal) {
-        int pos1 = (new Random().nextInt(this.size)) + 1;
-        int pos2 = (new Random().nextInt(this.size - length)) + 1;
+        int pos1 = (new Random().nextInt(this.size));
+        pos1 = pos1 == 0 ? pos1 + 1 : pos1;
+        int pos2 = (new Random().nextInt(this.size - length));
+        pos2 = pos2 == 0 ? pos2 + 1 : pos2;
         Field f;
         if(isHorizontal) {
             f = new Field(new Coordinate(pos2, pos1));
